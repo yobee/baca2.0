@@ -1,13 +1,10 @@
 package yobe.baca50;
 
-import android.app.LauncherActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 public class MainManuActivity extends AppCompatActivity {
@@ -34,7 +31,7 @@ public class MainManuActivity extends AppCompatActivity {
 
         }
 
-        MyListAdapter adapter = new MyListAdapter(this,data,R.layout.list_item);
+        MyListAdapter adapter = new MyListAdapter(this,data,R.layout.content_menu_list_item);
         ListView list = (ListView) findViewById(R.id.list);
         list.setAdapter(adapter);
 
