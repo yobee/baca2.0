@@ -1,5 +1,6 @@
 package yobe.baca50;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -59,13 +60,16 @@ public class UserListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Intent intent = new Intent(UserListActivity.this,UserRegistActivity.class);
+                startActivity(intent);
+
             }
         });
-        Intent intent = getIntent();
 
+        Intent intent = getIntent();
         realm = Realm.getDefaultInstance();
-            recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-//        setUpRecyclerView();
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        setUpRecyclerView();
 
 
     }
@@ -90,6 +94,8 @@ public class UserListActivity extends AppCompatActivity {
         ItemTouchHelper touchHelper = new ItemTouchHelper(touchHelperCallback);
         touchHelper.attachToRecyclerView(recyclerView);
     }
+
+
 
 
 }
