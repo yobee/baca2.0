@@ -1,8 +1,12 @@
 package yobe.baca50;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -35,5 +39,25 @@ public class MainManuActivity extends AppCompatActivity {
         ListView list = (ListView) findViewById(R.id.list);
         list.setAdapter(adapter);
 
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ListView listView =(ListView)parent;
+//                String item = (String)listView.getItemAtPosition(position);
+                if(position == 0){
+                    Intent intent = new Intent(MainManuActivity.this, UserListActivity.class);
+                    startActivity(intent);
+
+                }else{
+                    Toast.makeText(MainManuActivity.this, "テスト", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
     }
+
+
 }

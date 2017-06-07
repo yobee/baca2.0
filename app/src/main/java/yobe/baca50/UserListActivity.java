@@ -1,5 +1,6 @@
 package yobe.baca50;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -60,10 +61,11 @@ public class UserListActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        Intent intent = getIntent();
 
         realm = Realm.getDefaultInstance();
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        setUpRecyclerView();
+            recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+//        setUpRecyclerView();
 
 
     }
@@ -73,6 +75,7 @@ public class UserListActivity extends AppCompatActivity {
         super.onDestroy();
         recyclerView.setAdapter(null);
         realm.close();
+        finish();
     }
 
 
