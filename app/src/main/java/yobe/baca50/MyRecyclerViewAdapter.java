@@ -56,18 +56,19 @@ class MyRecyclerViewAdapter extends RealmRecyclerViewAdapter<User, MyRecyclerVie
         final User obj = getItem(position);
         holder.data = obj;
         //noinspection ConstantConditions
-        holder.uid.setText(obj.getuIdString());
+        holder.id.setText(obj.getId());
+        holder.uid.setText(obj.getuId().toString());
         holder.uName.setText(obj.getuName());
-        holder.uDetail.setText(obj.getuDetail());
-        holder.deletedCheckBox.setChecked(countersToDelete.contains(obj.getuId()));
+        holder.uSubName.setText(obj.getuSubName());
+        holder.deletedCheckBox.setChecked(countersToDelete.contains(obj.getId()));
         if (inDeletionMode) {
             holder.deletedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        countersToDelete.add(obj.getuId());
+//                        countersToDelete.add(obj.getuId());
                     } else {
-                        countersToDelete.remove(obj.getuId());
+//                        countersToDelete.remove(obj.getId());
                     }
                 }
             });
@@ -84,15 +85,16 @@ class MyRecyclerViewAdapter extends RealmRecyclerViewAdapter<User, MyRecyclerVie
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView id;
         TextView uid;
         TextView uName;
-        TextView uDetail;
+        TextView uSubName;
         CheckBox deletedCheckBox;
         public User data;
 
         MyViewHolder(View view) {
             super(view);
-            uName = (TextView) view.findViewById(R.id.uname);
+            uSubName = (TextView) view.findViewById(R.id.uname);
             deletedCheckBox = (CheckBox) view.findViewById(R.id.checkBox);
         }
     }

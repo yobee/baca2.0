@@ -9,47 +9,35 @@ import io.realm.Realm;
  */
 
 public class DataHelper {
-    // Create 3 counters and insert them into random place of the list.
-    public static void randomAddItemAsync(Realm realm) {
-        realm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                for (int i = 0; i < 3; i++) {
-                    User.create(realm, true);
-                }
-            }
-        });
-    }
 
+    // 新規登録
     public static void addItemAsync(Realm realm) {
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                User.create(realm);
+                User.insertAction(realm);
             }
         });
     }
 
+    // 修正
+    public static void updateItemAsync(Realm realm,final long id) {
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                User.updateAction(realm,id);
+            }
+        });
+    }
+
+    // ユーザーの削除
     public static void deleteItemAsync(Realm realm, final long id) {
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                User.delete(realm, id);
+                User.deleteAction(realm, id);
             }
         });
     }
 
-    public static void deleteItemsAsync(Realm realm, Collection<Integer> ids) {
-        // Create an new array to avoid concurrency problem.
-        final Integer[] idsToDelete = new Integer[ids.size()];
-        ids.toArray(idsToDelete);
-        realm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                for (Integer id : idsToDelete) {
-                    User.delete(realm, id);
-                }
-            }
-        });
-    }
 }
