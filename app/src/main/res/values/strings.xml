@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">baca5.0</string>
     <string name="title_activity_user_list">UserListActivity</string>
+    <string name="name">名前</string>
+    <string name="sub_name">名前カナ</string>
+    <string name="woman">女性</string>
+    <string name="man">男性</string>
+    <string name="submit">登録</string>
+    <string name="string_submit">onClickSubmit</string>
 </resources>

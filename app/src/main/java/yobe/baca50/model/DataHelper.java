@@ -11,11 +11,11 @@ import io.realm.Realm;
 public class DataHelper {
 
     // 新規登録
-    public static void addItemAsync(Realm realm) {
+    public static void addItemAsync(Realm realm,final User user) {
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                User.insertAction(realm);
+                User.insertAction(realm,user);
             }
         });
     }

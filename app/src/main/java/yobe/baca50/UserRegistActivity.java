@@ -8,12 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import io.realm.Realm;
 import yobe.baca50.model.DataHelper;
 import yobe.baca50.model.Parent;
+import yobe.baca50.model.User;
 import yobe.baca50.ui.DividerItemDecoration;
+
+import static yobe.baca50.R.id.radioButtonMan;
 
 
 public class UserRegistActivity extends AppCompatActivity {
@@ -54,42 +59,53 @@ public class UserRegistActivity extends AppCompatActivity {
 
         realm = Realm.getDefaultInstance();
 
-        final EditText mName = (EditText)findViewById(R.id.Name);
-        final EditText mSubName = (EditText)findViewById(R.id.subName);
+        final EditText mName = (EditText) findViewById(R.id.Name);
+        final EditText mSubName = (EditText) findViewById(R.id.subName);
+
+        RadioGroup group = (RadioGroup) findViewById(R.id.radio_sex_group);
+        group.check(radioButtonMan);
 
 
         findViewById(R.id.regist).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // クリック時の処理
-                Toast.makeText(UserRegistActivity.this,"hoge",Toast.LENGTH_LONG).show();
+
+                User user = new User();
+                user.setuName(mName.toString());
+                user.setuSubName(mSubName.toString());
+
+                // 性別ラジオボタンのチェック
+                RadioButton radio = (RadioButton) findViewById(radioButtonMan);
+                if (radio.isChecked() == true) {
+                // 性別チェック
+                    user.setuSex(1);
+                } else {
+                    user.setuSex(0);
+                }
+
+                DataHelper.addItemAsync(realm, user);
 
 
-                DataHelper.addItemAsync(realm);
-
-
-                mName.setText("");
-                mSubName.setText("");
-
-                Intent intent = new Intent(UserRegistActivity.this,UserListActivity.class);
+                Intent intent = new Intent(UserRegistActivity.this, UserListActivity.class);
                 startActivity(intent);
 
             }
         });
 
-        setUpRecyclerView();
+//        setUpRecyclerView();
 
     }
 
-    private void setUpRecyclerView() {
-        adapter = new MyRecyclerViewAdapter(realm.where(Parent.class).findFirst().getUserList());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
-
-        TouchHelperCallback touchHelperCallback = new TouchHelperCallback();
-        ItemTouchHelper touchHelper = new ItemTouchHelper(touchHelperCallback);
-        touchHelper.attachToRecyclerView(recyclerView);
-    }
+//    private void setUpRecyclerView() {
+//        adapter = new MyRecyclerViewAdapter(realm.where(Parent.class).findFirst().getUserList());
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(adapter);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+//
+//        TouchHelperCallback touchHelperCallback = new TouchHelperCallback();
+//        ItemTouchHelper touchHelper = new ItemTouchHelper(touchHelperCallback);
+//        touchHelper.attachToRecyclerView(recyclerView);
+//    }
 }

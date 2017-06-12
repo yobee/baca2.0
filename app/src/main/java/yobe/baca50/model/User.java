@@ -30,20 +30,11 @@ public class User extends RealmObject {
 
     @PrimaryKey
     private String id = UUID.randomUUID().toString();
-
     private Long uId;
-
     private String uName;
     private String uSubName;
     private Integer uSex;
-
-    public Integer getuSex() {
-        return uSex;
-    }
-
-    public void setuSex(Integer uSex) {
-        this.uSex = uSex;
-    }
+    private String uProfileImageUrl;
 
 
     public Long getuId() {
@@ -77,6 +68,14 @@ public class User extends RealmObject {
     public void setuSubName(String uSubName) {
         this.uSubName = uSubName;
     }
+    public Integer getuSex() {
+        return uSex;
+    }
+
+    public void setuSex(Integer uSex) {
+        this.uSex = uSex;
+    }
+
 
     public String getuProfileImageUrl() {
         return uProfileImageUrl;
@@ -86,7 +85,6 @@ public class User extends RealmObject {
         this.uProfileImageUrl = uProfileImageUrl;
     }
 
-    private String uProfileImageUrl;
 
 
 
@@ -105,15 +103,17 @@ public class User extends RealmObject {
     }
 
 //    登録処理
-    static void insertAction(Realm realm){
+    static void insertAction(Realm realm, final User user){
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm bgRealm) {
-                User user = bgRealm.createObject(User.class);
-                user.setuId(increment());
-                user.setuName("Young Person");
-                user.setuSubName("４パーソン");
-                user.setuSex(1);
+                User users = bgRealm.createObject(User.class);
+                users.setuId(increment());
+                users.setuName("佐藤　太郎");
+                users.setuSubName("sato taro");
+//                users.setuName(user.uName);
+//                users.setuSubName(user.uSubName);
+                users.setuSex(1);
             }
         });
     }
@@ -121,6 +121,7 @@ public class User extends RealmObject {
     static void updateAction(Realm realm, long id) {
         User user = realm.where(User.class).equalTo(FIELD_ID, id).findFirst();
         // Otherwise it has been deleted already.
+
     }
 
     static void deleteAction(Realm realm, long id) {
