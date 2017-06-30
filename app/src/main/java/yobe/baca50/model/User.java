@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import io.realm.OrderedCollectionChangeSet;
 import io.realm.OrderedRealmCollectionChangeListener;
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
@@ -30,6 +31,7 @@ public class User extends RealmObject {
 
     @PrimaryKey
     private String id = UUID.randomUUID().toString();
+
     private Long uId;
     private String uName;
     private String uSubName;
@@ -93,30 +95,38 @@ public class User extends RealmObject {
     }
 
     static void create(Realm realm, boolean randomlyInsert) {
-        String wkName = null;
-        String wkSubName = null;
-
-        //User user = realm.createObject(User.class, increment());
-
-        User user = new User();
-
+        Parent parent = realm.where(Parent.class).findFirst();
+        RealmList<User> users = parent.getUserList();
+//        User user = realm.createObject(User.class, increment());
+        if (users.size() > 0) {
+//            Random rand = new Random();
+//            users.listIterator(rand.nextInt(counters.size())).add(counter);
+        } else {
+//            counters.add(counter);
+        }
     }
 
 //    登録処理
     static void insertAction(Realm realm, final User user){
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm bgRealm) {
-                User users = bgRealm.createObject(User.class);
-                users.setuId(increment());
-                users.setuName("佐藤　太郎");
-                users.setuSubName("sato taro");
+        Parent parent = realm.where(Parent.class).findFirst();
+        RealmList<User> users = parent.getUserList();
+//        Counter counter = realm.createObject(Counter.class, increment());
+
+//        User users = realm.createObject(User.class,UUID.randomUUID().toString());
+//                users.setuId(increment());
 //                users.setuName(user.uName);
 //                users.setuSubName(user.uSubName);
-                users.setuSex(1);
-            }
-        });
+//                users.setuName(user.uName);
+//                users.setuSubName(user.uSubName);
+//                users.setuSex(user.uSex);
+        user.setuId(increment());
+
+        users.add(user);
+
+
     }
+
+
 
     static void updateAction(Realm realm, long id) {
         User user = realm.where(User.class).equalTo(FIELD_ID, id).findFirst();
