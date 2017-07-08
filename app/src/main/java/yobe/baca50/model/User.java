@@ -97,9 +97,8 @@ public class User extends RealmObject {
     static void create(Realm realm, boolean randomlyInsert) {
         Parent parent = realm.where(Parent.class).findFirst();
         RealmList<User> users = parent.getUserList();
-//        User user = realm.createObject(User.class, increment());
+        User user = realm.createObject(User.class, increment());
         if (users.size() > 0) {
-//            Random rand = new Random();
 //            users.listIterator(rand.nextInt(counters.size())).add(counter);
         } else {
 //            counters.add(counter);

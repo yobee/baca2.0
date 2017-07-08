@@ -31,11 +31,11 @@ public class DataHelper {
     }
 
     // 修正
-    public static void updateItemAsync(Realm realm,final long id) {
+    public static void updateItemAsync(Realm realm,User user) {
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                User.updateAction(realm,id);
+//                User.updateAction(realm, id);
             }
         });
     }
@@ -45,6 +45,7 @@ public class DataHelper {
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
+
                 User.deleteAction(realm, id);
             }
         });
